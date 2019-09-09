@@ -1,0 +1,24 @@
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.ELONG_LOGIN_FORM.resources
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.Properties.Resources.resources
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.csproj.GenerateResource.Cache
+F:\VG_Copy\BaiduLogin\BaiduLogin\bin\Debug\BaiduLogin.exe
+F:\VG_Copy\BaiduLogin\BaiduLogin\bin\Debug\BaiduLogin.pdb
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.exe
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.pdb
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.BaiduAutoLogin.resources
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.BaiduManualLogin.resources
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.csprojResolveAssemblyReference.cache
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.WebBrowserLogin.resources
+F:\VG_Copy\BaiduLogin\BaiduLogin\bin\Debug\BaiduLogin.exe.config
+F:\VG_Copy\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.csproj.ResolveComReference.cache
+F:\My  Private program\BaiduLogin\BaiduLogin\bin\Debug\BaiduLogin.exe.config
+F:\My  Private program\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.csproj.ResolveComReference.cache
+F:\My  Private program\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.exe
+F:\My  Private program\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.pdb
+F:\My  Private program\BaiduLogin\BaiduLogin\bin\Debug\BaiduLogin.exe
+F:\My  Private program\BaiduLogin\BaiduLogin\bin\Debug\BaiduLogin.pdb
+F:\My  Private program\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.BaiduAutoLogin.resources
+F:\My  Private program\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.BaiduManualLogin.resources
+F:\My  Private program\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.Properties.Resources.resources
+F:\My  Private program\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.WebBrowserLogin.resources
+F:\My  Private program\BaiduLogin\BaiduLogin\obj\x86\Debug\BaiduLogin.csproj.GenerateResource.Cache

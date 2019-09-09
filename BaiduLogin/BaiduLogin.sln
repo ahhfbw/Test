@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaiduLogin", "BaiduLogin\BaiduLogin.csproj", "{D290A1D2-9D23-41AF-AA4D-E7A38A1D530F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D290A1D2-9D23-41AF-AA4D-E7A38A1D530F}.Debug|x86.ActiveCfg = Debug|x86
+		{D290A1D2-9D23-41AF-AA4D-E7A38A1D530F}.Debug|x86.Build.0 = Debug|x86
+		{D290A1D2-9D23-41AF-AA4D-E7A38A1D530F}.Release|x86.ActiveCfg = Release|x86
+		{D290A1D2-9D23-41AF-AA4D-E7A38A1D530F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
