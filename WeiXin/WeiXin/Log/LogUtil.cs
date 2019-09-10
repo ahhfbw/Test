@@ -17,7 +17,7 @@ namespace WeiXin.Log
         {
             if (filePath=="")
             {
-                filePath = AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyyMMdd") + "Log_AttendanceReminding.txt";
+                filePath = AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "Log_AttendanceReminding.txt";
             }
             StreamWriter sw = null;
             if (!File.Exists(filePath))
@@ -35,7 +35,7 @@ namespace WeiXin.Log
         {
             if (filePath == "")
             {
-                filePath = AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyyMMdd") + "Log_AttendanceReminding.txt";
+                filePath = AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "Log_AttendanceReminding.txt";
             }
 
             StreamWriter sw = null;
@@ -61,7 +61,7 @@ namespace WeiXin.Log
             if (filePath == "")
             {
 				//Environment.CurrentDirectory
-                filePath = AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyyMMdd") + "Log_AttendanceReminding.txt";
+                filePath = AppDomain.CurrentDomain.BaseDirectory + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "Log_AttendanceReminding.txt";
             }
 
             StreamWriter sw = null;
@@ -73,7 +73,7 @@ namespace WeiXin.Log
             {
                 sw = File.AppendText(filePath);
             }
-            sw.Write(str + DateTime.Now.ToString() + Environment.NewLine);
+            sw.Write(str + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + Environment.NewLine);
             sw.Close();
         }
     }

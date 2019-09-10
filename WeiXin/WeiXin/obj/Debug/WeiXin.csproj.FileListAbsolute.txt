@@ -84,3 +84,4 @@ C:\Users\bowen\Documents\GitHub\Test\WeiXin\WeiXin\obj\Debug\WeiXin.csproj.CoreC
 C:\Users\bowen\Documents\GitHub\Test\WeiXin\WeiXin\obj\Debug\WeiXin.csproj.CopyComplete
 C:\Users\bowen\Documents\GitHub\Test\WeiXin\WeiXin\obj\Debug\WeiXin.dll
 C:\Users\bowen\Documents\GitHub\Test\WeiXin\WeiXin\obj\Debug\WeiXin.pdb
+C:\Users\bowen\Documents\GitHub\Test\WeiXin\WeiXin\obj\Debug\WeiXin.csprojAssemblyReference.cache
