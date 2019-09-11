@@ -5,15 +5,134 @@ using System.Web;
 using System.Web.Mvc;
 using WeiXin.Log;
 using WeiXin.Common;
+using System.IO;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace WeiXin.Controllers
 {
 	public class HomeController : Controller
 	{
+		private static object objLock = new object();
+
 		public string Index()
 		{
 
-			if (!string.IsNullOrEmpty( Request.QueryString["signature"]))
+			lock (objLock)
+			{
+
+			}
+
+			Stream s = null;
+			if ((s = Request.InputStream) != null && s.Length > 0)
+			{
+				string strPostData = Comon.GetPostData(s);
+
+				//< xml >
+				//  < ToUserName >< ![CDATA[toUser]] ></ ToUserName >
+				//  < FromUserName >< ![CDATA[fromUser]] ></ FromUserName >
+				//  < CreateTime > 1348831860 </ CreateTime >
+				//  < MsgType >< ![CDATA[text]] ></ MsgType >
+				//  < Content >< ![CDATA[this is a test]] ></ Content >
+				//  < MsgId > 1234567890123456 </ MsgId >
+				//</ xml >
+				LogUtil.WriteLogWithCheckFile_Ex(strPostData, "PostData");
+
+				//< xml >< ToUserName >< ![CDATA[gh_1843bb44e922]] ></ ToUserName >
+				//< FromUserName >< ![CDATA[oVMqz0uOTRHNsAkaOni88mDeyPT0]] ></ FromUserName >
+				//< CreateTime > 1568186732 </ CreateTime >
+				//< MsgType >< ![CDATA[text]] ></ MsgType >
+				//< Content >< ![CDATA[haha]] ></ Content >
+				//< MsgId > 22451039011753575 </ MsgId >
+				//</ xml >
+
+//				strPostData = @"<xml><ToUserName><![CDATA[gh_1843bb44e922]]></ToUserName>
+//<FromUserName><![CDATA[oVMqz0uOTRHNsAkaOni88mDeyPT0]]></FromUserName>
+//<CreateTime>1568186732</CreateTime>
+//<MsgType><![CDATA[text]]></MsgType>
+//<Content><![CDATA[haha]]></Content>
+//<MsgId>22451039011753575</MsgId>
+//</xml>";
+				//https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140453
+				//https://www.cnblogs.com/wt627939556/p/6646752.html
+				XmlDocument doc = new XmlDocument();
+				try
+				{
+					doc.LoadXml(strPostData);
+					XmlNode node = doc.SelectSingleNode("xml/MsgType");
+					switch (node.InnerText)
+					{
+						case "text"://文本消息
+							string ToUserName = doc.SelectSingleNode("xml/ToUserName").InnerText;
+							string FromUserName = doc.SelectSingleNode("xml/FromUserName").InnerText;
+							string Content =doc.SelectSingleNode("xml/Content").InnerText;
+
+
+							string fensihao = FromUserName;
+							string gongzhonghao = ToUserName;
+							string msgType = "text";
+							string content = "你发送的消息为：" + Content;
+							//string returnData = @"<xml>
+							//<ToUserName><![CDATA[粉丝号]]></ToUserName>
+							//<FromUserName><![CDATA[公众号]]></FromUserName>
+							//<CreateTime>1460541339</CreateTime>
+							//<MsgType><![CDATA[text]]></MsgType>
+							//<Content><![CDATA[test]]></Content>
+							//</xml>";
+							string returnData =@"<xml>
+ <ToUserName><![CDATA["+ fensihao + @"]]></ToUserName>
+ <FromUserName><![CDATA["+gongzhonghao+@"]]></FromUserName>
+ <CreateTime>"+DateTime.Now.Ticks+@"</CreateTime>
+ <MsgType><![CDATA["+ msgType + @"]]></MsgType>
+ <Content><![CDATA["+content+@"]]></Content>
+ </xml>";
+							return returnData;
+
+							//break;
+						case "image"://图片消息
+							break;
+						case "voice"://语音消息
+							break;
+						case "video"://视频
+							break;
+						case "shortvideo"://小视频
+							break;
+						case "location"://地理位置
+							break;
+						case "link"://链接消息
+							break;
+
+						case "event"://接收事件推送
+							//1 关注 / 取消关注事件
+
+							//2 扫描带参数二维码事件
+
+							//3 上报地理位置事件
+
+							//4 自定义菜单事件
+
+							//5 点击菜单拉取消息时的事件推送
+
+							//6 点击菜单跳转链接时的事件推送
+							break;
+						default:
+							break;
+					}
+					return "success";
+				}
+				catch (Exception ex)
+				{
+					return ex.Message;
+
+				}
+
+
+
+
+
+			}
+
+			if (!string.IsNullOrEmpty(Request.QueryString["signature"]))
 			{
 				string echostr = Request.QueryString["echostr"];
 
@@ -23,17 +142,17 @@ namespace WeiXin.Controllers
 				string nonce = Request.QueryString["nonce"];
 				string token = Define.TOKEN;
 
-				string[] arrCheck = { timestamp ,nonce,token};
+				string[] arrCheck = { timestamp, nonce, token };
 				Array.Sort(arrCheck);
 				LogUtil.WriteLogWithCheckFile("", "echostr:" + echostr);
 
 				LogUtil.WriteLogWithCheckFile("", "signature:" + signature);
-				LogUtil.WriteLogWithCheckFile("", "timestamp:"+ timestamp);
+				LogUtil.WriteLogWithCheckFile("", "timestamp:" + timestamp);
 				LogUtil.WriteLogWithCheckFile("", "nonce:" + nonce);
 				LogUtil.WriteLogWithCheckFile("", "token:" + token);
 
 				string newStr = string.Join("", arrCheck);
-				LogUtil.WriteLogWithCheckFile("", "newStr:"+newStr);
+				LogUtil.WriteLogWithCheckFile("", "newStr:" + newStr);
 
 				LogUtil.WriteLogWithCheckFile("", "jiamiGetSha1Hash:" + Encryptcs.GetSha1Hash(newStr));
 				LogUtil.WriteLogWithCheckFile("", "jiamiSHA1_Encrypt:" + Encryptcs.SHA1_Encrypt(newStr));
@@ -47,6 +166,9 @@ namespace WeiXin.Controllers
 					//Response.Write(echostr);
 				}
 			}
+
+
+
 			return "Invalid Request";
 		}
 
