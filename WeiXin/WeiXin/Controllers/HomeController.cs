@@ -60,16 +60,22 @@ namespace WeiXin.Controllers
 				{
 					doc.LoadXml(strPostData);
 					XmlNode node = doc.SelectSingleNode("xml/MsgType");
+					string ToUserName = "";
+					string FromUserName = "";
+					if (node !=null)
+					{
+						 ToUserName = doc.SelectSingleNode("xml/ToUserName").InnerText;
+						 FromUserName = doc.SelectSingleNode("xml/FromUserName").InnerText;
+					}
+
+					string fensihao = FromUserName;
+					string gongzhonghao = ToUserName;
+
 					switch (node.InnerText)
 					{
 						case "text"://文本消息
-							string ToUserName = doc.SelectSingleNode("xml/ToUserName").InnerText;
-							string FromUserName = doc.SelectSingleNode("xml/FromUserName").InnerText;
+							
 							string Content =doc.SelectSingleNode("xml/Content").InnerText;
-
-
-							string fensihao = FromUserName;
-							string gongzhonghao = ToUserName;
 							string msgType = "text";
 							string content = "你发送的消息为：" + Content;
 							//string returnData = @"<xml>
@@ -90,7 +96,25 @@ namespace WeiXin.Controllers
 
 							//break;
 						case "image"://图片消息
-							break;
+									 //							< xml >
+									 //< ToUserName >< ![CDATA[公众号]] ></ ToUserName >
+									 // < FromUserName >< ![CDATA[粉丝号]] ></ FromUserName >
+									 // < CreateTime > 1460536575 </ CreateTime >
+									 // < MsgType >< ![CDATA[image]] ></ MsgType >
+									 // < PicUrl >< ![CDATA[http://mmbiz.qpic.cn/xxxxxx /0]]></PicUrl>
+									 // < MsgId > 6272956824639273066 </ MsgId >
+									 // < MediaId >< ![CDATA[gyci5a - xxxxx - OL]] ></ MediaId >
+									 // </ xml >
+							return @"<xml>
+ <ToUserName><![CDATA[" + fensihao + @"]]></ToUserName>
+ <FromUserName><![CDATA[" + gongzhonghao + @"]]></FromUserName>
+ <CreateTime>" + DateTime.Now.Ticks + @"</CreateTime>
+ <MsgType><![CDATA[image]]></MsgType>
+ <Image>
+ <MediaId><![CDATA["+ doc.SelectSingleNode("xml/MediaId").InnerText + @"]]></MediaId>
+ </Image>
+ </xml>";
+							//break;
 						case "voice"://语音消息
 							break;
 						case "video"://视频
@@ -103,7 +127,31 @@ namespace WeiXin.Controllers
 							break;
 
 						case "event"://接收事件推送
+
 							//1 关注 / 取消关注事件
+							if (doc.SelectSingleNode("xml/Event").InnerText== "subscribe")
+							{
+								LogUtil.WriteLogWithCheckFile("subscribe");
+
+								return @"<xml>
+ <ToUserName><![CDATA[" + fensihao + @"]]></ToUserName>
+ <FromUserName><![CDATA[" + gongzhonghao + @"]]></FromUserName>
+ <CreateTime>" + DateTime.Now.Ticks + @"</CreateTime>
+ <MsgType><![CDATA[text]]></MsgType>
+ <Content><![CDATA[感谢你关注龙城帝国公众号,"+Environment.NewLine+@"小龙将竭诚为您服务]]></Content>
+ </xml>";
+							}
+							if (doc.SelectSingleNode("xml/Event").InnerText == "unsubscribe")
+							{
+								LogUtil.WriteLogWithCheckFile("unsubscribe");
+								return @"<xml>
+ <ToUserName><![CDATA[" + fensihao + @"]]></ToUserName>
+ <FromUserName><![CDATA[" + gongzhonghao + @"]]></FromUserName>
+ <CreateTime>" + DateTime.Now.Ticks + @"</CreateTime>
+ <MsgType><![CDATA[text]]></MsgType>
+ <Content><![CDATA[谢谢你一直的陪伴，期待下次小龙将更好的为您服务]]></Content>
+ </xml>";
+							}
 
 							//2 扫描带参数二维码事件
 
@@ -114,6 +162,8 @@ namespace WeiXin.Controllers
 							//5 点击菜单拉取消息时的事件推送
 
 							//6 点击菜单跳转链接时的事件推送
+
+
 							break;
 						default:
 							break;
