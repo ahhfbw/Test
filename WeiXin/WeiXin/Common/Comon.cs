@@ -19,23 +19,53 @@ namespace WeiXin.Common
 
 		public static string access_token = "";
 		public static int expires_in = 0;
+		public static DateTime dtDateTime = new DateTime();
 
 		public static void set_access_token()
 		{
 
 			string strUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxbc353613b2bf24fd&secret=5f2440cc2b0243de9b60ee8087c8f6bd";
-
 			string jsonData = HttpGet(strUrl, "");
-
 			JObject array = (JObject)JsonConvert.DeserializeObject(jsonData);
 			 access_token = (string)array["access_token"];
 			 expires_in = (int)array["expires_in"];
+			dtDateTime = DateTime.Now;
 
-			DataTable dt = new DataTable();
-			dt.Columns.Add("Age", typeof(int));
-			dt.Columns.Add("Name", Type.GetType("System.String"));
-			dt.Columns.Add("Sex", Type.GetType("System.String"));
-			dt.Columns.Add("IsMarry", Type.GetType("System.Boolean"));
+			//DataTable dt = new DataTable();
+			//dt.Columns.Add("Age", typeof(int));
+			//dt.Columns.Add("Name", Type.GetType("System.String"));
+			//dt.Columns.Add("Sex", Type.GetType("System.String"));
+			//dt.Columns.Add("IsMarry", Type.GetType("System.Boolean"));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public static bool IsNeedRe_set_access_token()
+		{
+			bool IsNeed = false;
+
+			if (access_token=="")
+			{
+				IsNeed = true;
+			}
+			else
+			{
+				TimeSpan timeSpan = DateTime.Now - dtDateTime;
+				//超时过期
+				if (timeSpan.TotalSeconds> expires_in)
+				{
+					IsNeed = true;
+				}
+
+			}
+			if (IsNeed)
+			{
+				set_access_token();
+			}
+			
+			return IsNeed;
 		}
 
 
